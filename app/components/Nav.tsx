@@ -11,6 +11,7 @@ const links = [
   { href: "/qr", label: "QR GEN" },
   { href: "/codeverter", label: "CODEVERTER" },
   { href: "/life", label: "LIFE IN WEEKS" },
+  { href: "/constellation", label: "STAR STORIES" },
 ];
 
 export default function Nav() {
