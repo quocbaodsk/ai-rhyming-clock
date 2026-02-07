@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
+import Nav from "./components/Nav";
 import "./globals.css";
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -10,7 +11,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "Rhyme Clock",
-  description: "AI-powered rhyming clock",
+  description: "AI-powered rhyming clock & drum machine",
 };
 
 export default function RootLayout({
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${ibmPlexMono.variable} antialiased`}>
+        <Nav />
         {children}
       </body>
     </html>
