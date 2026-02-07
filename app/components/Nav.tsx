@@ -9,6 +9,8 @@ const links = [
   { href: "/game", label: "PLATFORMER" },
   { href: "/coach", label: "CODE COACH" },
   { href: "/qr", label: "QR GEN" },
+  { href: "/codeverter", label: "CODEVERTER" },
+  { href: "/life", label: "LIFE IN WEEKS" },
 ];
 
 export default function Nav() {
