@@ -8,6 +8,7 @@ const links = [
   { href: "/drum", label: "DRUM MACHINE" },
   { href: "/game", label: "PLATFORMER" },
   { href: "/coach", label: "CODE COACH" },
+  { href: "/qr", label: "QR GEN" },
 ];
 
 export default function Nav() {

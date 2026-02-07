@@ -1379,3 +1379,249 @@ body {
     font-size: 7px;
   }
 }
+
+/* ══════════════════════════════════════
+   QR Code Generator
+   ══════════════════════════════════════ */
+
+.qr-body {
+  width: 420px;
+  background:
+    linear-gradient(
+      170deg,
+      var(--aluminum-light) 0%,
+      var(--aluminum) 25%,
+      var(--aluminum-dark) 50%,
+      var(--aluminum) 75%,
+      var(--aluminum-light) 100%
+    );
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.15) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.1) inset,
+    0 20px 60px var(--body-shadow),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.qr-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+}
+
+.qr-bezel {
+  background: var(--bezel);
+  border-radius: 6px;
+  padding: 3px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 -1px 3px rgba(0, 0, 0, 0.4) inset,
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.qr-screen {
+  background: var(--screen-bg);
+  border-radius: 4px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 30px rgba(51, 255, 102, 0.03) inset,
+    0 2px 6px rgba(0, 0, 0, 0.5) inset;
+}
+
+.qr-screen::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(51, 255, 102, 0.04), transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.qr-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.qr-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--screen-glow-dim);
+  text-align: center;
+  text-shadow: 0 0 10px rgba(51, 255, 102, 0.3);
+}
+
+.qr-tabs {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.qr-tab {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  padding: 5px 14px;
+  border: 1px solid rgba(51, 255, 102, 0.15);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--screen-glow-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qr-tab:hover {
+  color: var(--screen-glow);
+  border-color: rgba(51, 255, 102, 0.3);
+}
+
+.qr-tab-active {
+  color: var(--screen-glow);
+  background: rgba(51, 255, 102, 0.08);
+  border-color: rgba(51, 255, 102, 0.4);
+  text-shadow: 0 0 8px rgba(51, 255, 102, 0.4);
+}
+
+.qr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qr-input {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--screen-glow);
+  background: rgba(51, 255, 102, 0.04);
+  border: 1px solid rgba(51, 255, 102, 0.15);
+  border-radius: 4px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.qr-input::placeholder {
+  color: var(--screen-glow-dim);
+  opacity: 0.5;
+}
+
+.qr-input:focus {
+  border-color: rgba(51, 255, 102, 0.4);
+  box-shadow: 0 0 12px rgba(51, 255, 102, 0.08) inset;
+}
+
+.qr-textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.qr-contact-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qr-contact-row {
+  display: flex;
+  gap: 8px;
+}
+
+.qr-generate-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  padding: 10px 20px;
+  border: 1px solid rgba(51, 255, 102, 0.3);
+  border-radius: 4px;
+  background: rgba(51, 255, 102, 0.08);
+  color: var(--screen-glow);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-shadow: 0 0 8px rgba(51, 255, 102, 0.3);
+}
+
+.qr-generate-btn:hover:not(:disabled) {
+  background: rgba(51, 255, 102, 0.15);
+  border-color: rgba(51, 255, 102, 0.5);
+  box-shadow: 0 0 16px rgba(51, 255, 102, 0.1);
+}
+
+.qr-generate-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.qr-canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.qr-canvas-visible {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.qr-canvas-wrap canvas {
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(51, 255, 102, 0.1);
+}
+
+.qr-download-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  border: 1px solid rgba(51, 255, 102, 0.2);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--screen-glow-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qr-download-btn:hover {
+  color: var(--screen-glow);
+  border-color: rgba(51, 255, 102, 0.4);
+  background: rgba(51, 255, 102, 0.06);
+}
+
+@media (max-width: 540px) {
+  .qr-body {
+    width: calc(100vw - 32px);
+    padding: 16px;
+  }
+
+  .qr-screen {
+    padding: 20px 16px;
+  }
+
+  .qr-contact-row {
+    flex-direction: column;
+  }
+}
