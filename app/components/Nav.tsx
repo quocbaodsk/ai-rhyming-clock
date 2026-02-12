@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 const links = [
   { href: '/', label: 'RHYME CLOCK' },
@@ -17,14 +18,51 @@ const links = [
 
 export default function Nav() {
   const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const handleLinkClick = () => {
+    setIsOpen(false)
+  }
 
   return (
     <nav className='nav'>
-      {links.map(link => (
-        <Link key={link.href} href={link.href} className={`nav-link${pathname === link.href ? ' nav-active' : ''}`}>
-          {link.label}
-        </Link>
-      ))}
+      {isMobile ? (
+        <>
+          <button className='nav-toggle' onClick={() => setIsOpen(!isOpen)} aria-label='Toggle menu'>
+            <span className={`nav-hamburger${isOpen ? ' nav-open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <div className={`nav-menu${isOpen ? ' nav-menu-open' : ''}`}>
+            {links.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={handleLinkClick}
+                className={`nav-link-mobile${pathname === link.href ? ' nav-active-mobile' : ''}`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </>
+      ) : (
+        links.map(link => (
+          <Link key={link.href} href={link.href} className={`nav-link${pathname === link.href ? ' nav-active' : ''}`}>
+            {link.label}
+          </Link>
+        ))
+      )}
     </nav>
   )
 }
